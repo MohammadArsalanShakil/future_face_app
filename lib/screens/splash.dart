@@ -110,7 +110,7 @@ class SplashScreen extends StatelessWidget {
                     constraints: const BoxConstraints(maxWidth: 200.0),
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/home');
+                        Navigator.pushNamed(context, '/import');
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,

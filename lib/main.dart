@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:future_face_app/screens/home.dart';
+import 'package:future_face_app/screens/import.dart';
+import 'package:future_face_app/screens/result.dart';
 import 'package:future_face_app/screens/splash.dart';
 
 void main() {
@@ -18,7 +19,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/splash',
       routes: {
         '/splash': (context) => SplashScreen(),
-        '/home': (context) => HomeScreen(),
+        '/import': (context) => ImportScreen(),
+        '/result': (context) => ResultScreen(),
       },
     );
   }
