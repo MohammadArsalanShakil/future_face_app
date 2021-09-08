@@ -40,10 +40,8 @@ class _ResultScreenState extends State<ResultScreen> {
             imgBytes = const Base64Decoder().convert(imgResponse.s0!);
             imgBytes = Uint8List.fromList(imgBytes!);
 
-            File file = File.fromRawPath(imgBytes!);
-
             setState(() {
-              imageFile = file;
+              imageFile = File.fromRawPath(imgBytes!);
             });
           } else if (responce.statusCode == 500) {
             print("Error 500");
