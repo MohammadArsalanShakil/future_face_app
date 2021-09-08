@@ -22,7 +22,7 @@ class _ResultScreenState extends State<ResultScreen> {
 
   Future<void> uploadFileToServer(BuildContext context, String url, File image,
       {double ageValue = 65.0}) async {
-    bool isURLValid = await checkURL(url);
+    bool isURLValid = await checkURL(futureFaceURL);
     if (isURLValid) {
       var request = http.MultipartRequest("POST", Uri.parse(url));
       var fileToPost = await http.MultipartFile.fromPath('img', image.path,
