@@ -301,8 +301,10 @@ Future<bool> saveImageToGallery(File file) async {
     }
     if (await directory.exists()) {
       if (Platform.isIOS) {
-        await ImageGallerySaver.saveFile(directory.path + "/path.jpg",
+        await ImageGallerySaver.saveFile(directory.path + '/path.jpg',
             isReturnPathOfIOS: true);
+      } else {
+        await ImageGallerySaver.saveFile(directory.path + "/path.jpg");
       }
       return true;
     }
