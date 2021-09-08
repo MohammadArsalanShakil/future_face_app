@@ -3,6 +3,9 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:future_face_app/constants/urls.dart';
+import 'package:future_face_app/controllers/check_url_status.dart';
 import 'package:http/http.dart' as http;
 import '/models/processed_image.dart';
 
@@ -17,31 +20,42 @@ class _ResultScreenState extends State<ResultScreen> {
   File? imageFile;
   Uint8List? imgBytes;
 
-  Future<void> uploadFileToServer(File image, double ageValue) async {
-    var request = http.MultipartRequest(
-        "POST", Uri.parse('http://117.20.29.108:5300/upload_file'));
-    var fileToPost = await http.MultipartFile.fromPath('img', image.path,
-        filename: image.path);
-    request.files.add(fileToPost);
-    request.fields['age'] = ageValue.toInt().toString();
+  Future<void> uploadFileToServer(BuildContext context, String url, File image,
+      {double ageValue = 65.0}) async {
+    bool isURLValid = await checkURL(url);
+    if (isURLValid) {
+      var request = http.MultipartRequest("POST", Uri.parse(url));
+      var fileToPost = await http.MultipartFile.fromPath('img', image.path,
+          filename: image.path);
+      request.files.add(fileToPost);
+      request.fields['age'] = ageValue.toInt().toString();
 
-    request.send().then((streamResponse) {
-      http.Response.fromStream(streamResponse).then((responce) {
-        if (responce.statusCode == 200) {
-          Map<String, dynamic> imgResponsemap = jsonDecode(responce.body);
-          ProcessedImage imgResponse = ProcessedImage.fromJson(imgResponsemap);
+      request.send().then((streamResponse) {
+        http.Response.fromStream(streamResponse).then((responce) {
+          if (responce.statusCode == 200) {
+            Map<String, dynamic> imgResponsemap = jsonDecode(responce.body);
+            ProcessedImage imgResponse =
+                ProcessedImage.fromJson(imgResponsemap);
 
-          setState(() {
             imgBytes = const Base64Decoder().convert(imgResponse.s0!);
             imgBytes = Uint8List.fromList(imgBytes!);
-          });
-        } else if (responce.statusCode == 500) {
-          print("Error 500");
-        } else {
-          print("Error");
-        }
+
+            File file = File.fromRawPath(imgBytes!);
+
+            setState(() {
+              imageFile = file;
+            });
+          } else if (responce.statusCode == 500) {
+            print("Error 500");
+          } else {
+            print("Error");
+          }
+        });
       });
-    });
+    } else {
+      Fluttertoast.showToast(msg: 'Error', gravity: ToastGravity.CENTER);
+      Navigator.pop(context);
+    }
   }
 
   @override
@@ -50,7 +64,8 @@ class _ResultScreenState extends State<ResultScreen> {
 
     Future.delayed(const Duration(seconds: 3), () {
       if (imageFile != null) {
-        uploadFileToServer(imageFile!, 45.0);
+        uploadFileToServer(context, futureFacePostURL, imageFile!,
+            ageValue: 45.0);
       } else {
         print("Error loading file");
       }

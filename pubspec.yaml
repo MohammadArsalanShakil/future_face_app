@@ -31,6 +31,10 @@ dependencies:
   image_picker: ^0.8.4
   image_cropper: ^1.4.1
   http: ^0.13.3
+  fluttertoast: ^8.0.8
+  permission_handler: ^8.1.4+2
+  image_gallery_saver: ^1.6.9
+  path_provider: ^2.0.3
 
 dev_dependencies:
   flutter_test:
