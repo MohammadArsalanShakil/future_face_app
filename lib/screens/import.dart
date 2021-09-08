@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:js_util';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:future_face_app/constants/app.dart';

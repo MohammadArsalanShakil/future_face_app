@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -18,7 +19,7 @@ class SplashScreen extends StatelessWidget {
           ),
         ),
         child: Container(
-          margin: const EdgeInsets.fromLTRB(10.0, 40.0, 10.0, 40.0),
+          margin: const EdgeInsets.fromLTRB(10.0, 40.0, 10.0, 1.0),
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage('assets/images/splash-bg.png'),
@@ -76,7 +77,7 @@ class SplashScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        'Future Face',
+                        AppLocalizations.of(context)!.appTitle,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 40.0,
