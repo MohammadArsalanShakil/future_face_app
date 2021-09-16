@@ -19,7 +19,7 @@ class _ResultScreenState extends State<ResultScreen> {
 
   Future<void> uploadFileToServer(File image, double ageValue) async {
     var request = http.MultipartRequest(
-        "POST", Uri.parse('http://117.20.29.108:5300/upload_file'));
+        "POST", Uri.parse(''));
     var fileToPost = await http.MultipartFile.fromPath('img', image.path,
         filename: image.path);
     request.files.add(fileToPost);
